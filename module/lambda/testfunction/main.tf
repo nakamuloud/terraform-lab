@@ -1,3 +1,5 @@
+
+
 data "archive_file" "testfunction_zip" {
   type        = "zip"
   source_dir  = "${path.module}/build"
@@ -22,6 +24,12 @@ resource "aws_iam_role" "testfunction_iam_role" {
   ]
 }
 EOF
+}
+
+resource "aws_iam_policy_attachment" "testfunction_access" {
+  name       = "testfunction_policy"
+  roles      = [aws_iam_role.testfunction_iam_role.name]
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
 
 
